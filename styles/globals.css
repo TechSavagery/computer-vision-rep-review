@@ -1,3 +1,11 @@
+@tailwind base;
+@tailwind components;
+article a {
+  color: rgb(49, 49, 182);
+  text-decoration: underline;
+}
+/* purgecss end ignore */
+@tailwind utilities;
 html,
 body {
   padding: 0;
