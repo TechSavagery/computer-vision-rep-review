@@ -18,6 +18,7 @@
     "next-auth": "^4.0.0-beta.6",
     "postcss-preset-env": "^6.7.0",
     "react-dom": "17.0.2",
+    "source-map-js": "^1.0.1",
     "vercel": "^23.1.2"
   },
   "devDependencies": {
