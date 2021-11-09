@@ -23,8 +23,8 @@
   }
   ```
 */
-import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react';
+import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
   BellIcon,
   ClockIcon,
@@ -38,7 +38,16 @@ import {
   ShieldCheckIcon,
   UserGroupIcon,
   XIcon,
-} from '@heroicons/react/outline'
+  StarIcon,
+  CodeIcon,
+  DotsVerticalIcon,
+  FlagIcon,
+  ThumbUpIcon,
+  ChatAltIcon,
+  EyeIcon,
+  ShareIcon,
+  PlusSmIcon,
+} from '@heroicons/react/outline';
 import {
   CashIcon,
   CheckCircleIcon,
@@ -46,7 +55,7 @@ import {
   ChevronRightIcon,
   OfficeBuildingIcon,
   SearchIcon,
-} from '@heroicons/react/solid'
+} from '@heroicons/react/solid';
 
 const navigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: true },
@@ -55,15 +64,42 @@ const navigation = [
   { name: 'Cards', href: '#', icon: CreditCardIcon, current: false },
   { name: 'Recipients', href: '#', icon: UserGroupIcon, current: false },
   { name: 'Reports', href: '#', icon: DocumentReportIcon, current: false },
-]
+];
 const secondaryNavigation = [
   { name: 'Settings', href: '#', icon: CogIcon },
   { name: 'Help', href: '#', icon: QuestionMarkCircleIcon },
   { name: 'Privacy', href: '#', icon: ShieldCheckIcon },
-]
+];
 const cards = [
-  { name: 'Account balance', href: '#', icon: ScaleIcon, amount: '$30,659.45' },
+  { name: 'Squat 1RM', href: '#', icon: ScaleIcon, amount: '545@220lbs' },
+  { name: 'Bench 1RM', href: '#', icon: ScaleIcon, amount: '375@220lbs' },
+  { name: 'Deadlift 1RM', href: '#', icon: ScaleIcon, amount: '715@220lbs' },
+  { name: 'WILKS', href: '#', icon: ScaleIcon, amount: '450@198lbs' },
+
   // More items...
+];
+const whoToFollow = [
+  {
+    name: 'Leonard Krasner',
+    handle: 'leonardkrasner',
+    href: '#',
+    imageUrl:
+      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  // More people...
+]
+const trendingPosts = [
+  {
+    id: 1,
+    user: {
+      name: 'Floyd Miles',
+      imageUrl:
+        'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    body: 'What books do you have on your bookshelf just to look smarter than you actually are?',
+    comments: 291,
+  },
+  // More posts...
 ]
 const transactions = [
   {
@@ -77,19 +113,42 @@ const transactions = [
     datetime: '2020-07-11',
   },
   // More transactions...
-]
+];
+const questions = [
+  {
+    id: '81614',
+    likes: '29',
+    replies: '11',
+    views: '2.7k',
+    author: {
+      name: 'Dries Vincent',
+      imageUrl:
+        'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      href: '#',
+    },
+    date: 'December 9 at 11:43 AM',
+    datetime: '2020-12-09T11:43:00',
+    href: '#',
+    title: 'What would you have done differently if you ran Jurassic Park?',
+    body: `
+      <p>Jurassic Park was an incredible idea and a magnificent feat of engineering, but poor protocols and a disregard for human safety killed what could have otherwise been one of the best businesses of our generation.</p>
+      <p>Ultimately, I think that if you wanted to run the park successfully and keep visitors safe, the most important thing to prioritize would be&hellip;</p>
+    `,
+  },
+  // More questions...
+];
 const statusStyles = {
   success: 'bg-green-100 text-green-800',
   processing: 'bg-yellow-100 text-yellow-800',
   failed: 'bg-gray-100 text-gray-800',
-}
+};
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Example() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
@@ -103,7 +162,11 @@ export default function Example() {
       */}
       <div className="min-h-full">
         <Transition.Root show={sidebarOpen} as={Fragment}>
-          <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setSidebarOpen}>
+          <Dialog
+            as="div"
+            className="fixed inset-0 flex z-40 lg:hidden"
+            onClose={setSidebarOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -124,7 +187,7 @@ export default function Example() {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-cyan-700">
+              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-black">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -141,7 +204,10 @@ export default function Example() {
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
-                      <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      <XIcon
+                        className="h-6 w-6 text-white"
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
                 </Transition.Child>
@@ -162,12 +228,17 @@ export default function Example() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-cyan-800 text-white' : 'text-cyan-100 hover:text-white hover:bg-cyan-600',
+                          item.current
+                            ? 'bg-cyan-800 text-white'
+                            : 'text-cyan-100 hover:text-white hover:bg-cyan-600',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
-                        <item.icon className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200" aria-hidden="true" />
+                        <item.icon
+                          className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200"
+                          aria-hidden="true"
+                        />
                         {item.name}
                       </a>
                     ))}
@@ -180,7 +251,10 @@ export default function Example() {
                           href={item.href}
                           className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-cyan-100 hover:text-white hover:bg-cyan-600"
                         >
-                          <item.icon className="mr-4 h-6 w-6 text-cyan-200" aria-hidden="true" />
+                          <item.icon
+                            className="mr-4 h-6 w-6 text-cyan-200"
+                            aria-hidden="true"
+                          />
                           {item.name}
                         </a>
                       ))}
@@ -198,7 +272,7 @@ export default function Example() {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-col flex-grow bg-cyan-700 pt-5 pb-4 overflow-y-auto">
+          <div className="flex flex-col flex-grow bg-black pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
               <img
                 className="h-8 w-auto"
@@ -206,19 +280,27 @@ export default function Example() {
                 alt="Easywire logo"
               />
             </div>
-            <nav className="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto" aria-label="Sidebar">
+            <nav
+              className="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto"
+              aria-label="Sidebar"
+            >
               <div className="px-2 space-y-1">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-cyan-800 text-white' : 'text-cyan-100 hover:text-white hover:bg-cyan-600',
+                      item.current
+                        ? 'bg-cyan-800 text-white'
+                        : 'text-cyan-100 hover:text-white hover:bg-cyan-600',
                       'group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
                     )}
                     aria-current={item.current ? 'page' : undefined}
                   >
-                    <item.icon className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200" aria-hidden="true" />
+                    <item.icon
+                      className="mr-4 flex-shrink-0 h-6 w-6 text-cyan-200"
+                      aria-hidden="true"
+                    />
                     {item.name}
                   </a>
                 ))}
@@ -231,7 +313,10 @@ export default function Example() {
                       href={item.href}
                       className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-cyan-100 hover:text-white hover:bg-cyan-600"
                     >
-                      <item.icon className="mr-4 h-6 w-6 text-cyan-200" aria-hidden="true" />
+                      <item.icon
+                        className="mr-4 h-6 w-6 text-cyan-200"
+                        aria-hidden="true"
+                      />
                       {item.name}
                     </a>
                   ))}
@@ -252,14 +337,17 @@ export default function Example() {
               <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
             </button>
             {/* Search bar */}
-            <div className="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+            <div className="w-full flex-1 px-4 flex justify-between sm:px-6 lg:max-w-full lg:mx-auto">
               <div className="flex-1 flex">
                 <form className="w-full flex md:ml-0" action="#" method="GET">
                   <label htmlFor="search-field" className="sr-only">
                     Search
                   </label>
                   <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                    <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none" aria-hidden="true">
+                    <div
+                      className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
+                      aria-hidden="true"
+                    >
                       <SearchIcon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <input
@@ -291,7 +379,8 @@ export default function Example() {
                         alt=""
                       />
                       <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
-                        <span className="sr-only">Open user menu for </span>Emilia Birch
+                        <span className="sr-only">Open user menu for </span>
+                        Emilia Birch
                       </span>
                       <ChevronDownIcon
                         className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -313,7 +402,10 @@ export default function Example() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
                           >
                             Your Profile
                           </a>
@@ -323,7 +415,10 @@ export default function Example() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
                           >
                             Settings
                           </a>
@@ -333,7 +428,10 @@ export default function Example() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                            className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
                           >
                             Logout
                           </a>
@@ -345,10 +443,10 @@ export default function Example() {
               </div>
             </div>
           </div>
-          <main className="flex-1 pb-8">
+          <main className="flex-1 pb-8 lg:col-span-9 xl:col-span-6">
             {/* Page header */}
-            <div className="bg-white shadow">
-              <div className="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+            <div className="lg:max-w-full bg-white shadow">
+              <div className="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8 lg:max-w-full">
                 <div className="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200">
                   <div className="flex-1 min-w-0">
                     {/* Profile */}
@@ -366,7 +464,7 @@ export default function Example() {
                             alt=""
                           />
                           <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                            Good morning, Emilia Birch
+                            Welcome Home, Emilia Birch
                           </h1>
                         </div>
                         <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -409,22 +507,34 @@ export default function Example() {
             </div>
 
             <div className="mt-8">
-              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-lg leading-6 font-medium text-gray-900">Overview</h2>
+              <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-lg leading-6 font-medium text-gray-900">
+                  Overview
+                </h2>
                 <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                   {/* Card */}
                   {cards.map((card) => (
-                    <div key={card.name} className="bg-white overflow-hidden shadow rounded-lg">
+                    <div
+                      key={card.name}
+                      className="bg-white overflow-hidden shadow rounded-lg"
+                    >
                       <div className="p-5">
                         <div className="flex items-center">
                           <div className="flex-shrink-0">
-                            <card.icon className="h-6 w-6 text-gray-400" aria-hidden="true" />
+                            <card.icon
+                              className="h-6 w-6 text-gray-400"
+                              aria-hidden="true"
+                            />
                           </div>
                           <div className="ml-5 w-0 flex-1">
                             <dl>
-                              <dt className="text-sm font-medium text-gray-500 truncate">{card.name}</dt>
+                              <dt className="text-sm font-medium text-gray-500 truncate">
+                                {card.name}
+                              </dt>
                               <dd>
-                                <div className="text-lg font-medium text-gray-900">{card.amount}</div>
+                                <div className="text-lg font-medium text-gray-900">
+                                  {card.amount}
+                                </div>
                               </dd>
                             </dl>
                           </div>
@@ -432,7 +542,10 @@ export default function Example() {
                       </div>
                       <div className="bg-gray-50 px-5 py-3">
                         <div className="text-sm">
-                          <a href={card.href} className="font-medium text-cyan-700 hover:text-cyan-900">
+                          <a
+                            href={card.href}
+                            className="font-medium text-cyan-700 hover:text-cyan-900"
+                          >
                             View all
                           </a>
                         </div>
@@ -442,29 +555,47 @@ export default function Example() {
                 </div>
               </div>
 
-              <h2 className="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8">
+              <h2 className="max-w-full mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8">
                 Recent activity
               </h2>
 
               {/* Activity list (smallest breakpoint only) */}
-              <div className="shadow sm:hidden">
-                <ul role="list" className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
+              <div className="max-w-full shadow sm:hidden">
+                <ul
+                  role="list"
+                  className="max-w-full mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden"
+                >
                   {transactions.map((transaction) => (
                     <li key={transaction.id}>
-                      <a href={transaction.href} className="block px-4 py-4 bg-white hover:bg-gray-50">
-                        <span className="flex items-center space-x-4">
-                          <span className="flex-1 flex space-x-2 truncate">
-                            <CashIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <a
+                        href={transaction.href}
+                        className="max-w-full block px-4 py-4 bg-white hover:bg-gray-50"
+                      >
+                        <span className="max-w-full flex items-center space-x-4">
+                          <span className="max-w-full flex-1 flex space-x-2 truncate">
+                            <CashIcon
+                              className="flex-shrink-0 h-5 w-5 text-gray-400"
+                              aria-hidden="true"
+                            />
                             <span className="flex flex-col text-gray-500 text-sm truncate">
-                              <span className="truncate">{transaction.name}</span>
+                              <span className="truncate">
+                                {transaction.name}
+                              </span>
                               <span>
-                                <span className="text-gray-900 font-medium">{transaction.amount}</span>{' '}
+                                <span className="text-gray-900 font-medium">
+                                  {transaction.amount}
+                                </span>{' '}
                                 {transaction.currency}
                               </span>
-                              <time dateTime={transaction.datetime}>{transaction.date}</time>
+                              <time dateTime={transaction.datetime}>
+                                {transaction.date}
+                              </time>
                             </span>
                           </span>
-                          <ChevronRightIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                          <ChevronRightIcon
+                            className="flex-shrink-0 h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                          />
                         </span>
                       </a>
                     </li>
@@ -492,9 +623,10 @@ export default function Example() {
                 </nav>
               </div>
 
+
               {/* Activity table (small breakpoint and up) */}
               <div className="hidden sm:block">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="flex flex-col mt-2">
                     <div className="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
                       <table className="min-w-full divide-y divide-gray-200">
@@ -519,7 +651,10 @@ export default function Example() {
                             <tr key={transaction.id} className="bg-white">
                               <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 <div className="flex">
-                                  <a href={transaction.href} className="group inline-flex space-x-2 truncate text-sm">
+                                  <a
+                                    href={transaction.href}
+                                    className="group inline-flex space-x-2 truncate text-sm"
+                                  >
                                     <CashIcon
                                       className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                       aria-hidden="true"
@@ -531,7 +666,9 @@ export default function Example() {
                                 </div>
                               </td>
                               <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                <span className="text-gray-900 font-medium">{transaction.amount} </span>
+                                <span className="text-gray-900 font-medium">
+                                  {transaction.amount}{' '}
+                                </span>
                                 {transaction.currency}
                               </td>
                               <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
@@ -545,12 +682,15 @@ export default function Example() {
                                 </span>
                               </td>
                               <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                <time dateTime={transaction.datetime}>{transaction.date}</time>
+                                <time dateTime={transaction.datetime}>
+                                  {transaction.date}
+                                </time>
                               </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
+                      
                       {/* Pagination */}
                       <nav
                         className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
@@ -558,7 +698,8 @@ export default function Example() {
                       >
                         <div className="hidden sm:block">
                           <p className="text-sm text-gray-700">
-                            Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of{' '}
+                            Showing <span className="font-medium">1</span> to{' '}
+                            <span className="font-medium">10</span> of{' '}
                             <span className="font-medium">20</span> results
                           </p>
                         </div>
@@ -581,10 +722,12 @@ export default function Example() {
                   </div>
                 </div>
               </div>
+        
             </div>
           </main>
+         
         </div>
       </div>
     </>
-  )
+  );
 }
